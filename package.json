@@ -1,0 +1,40 @@
+{
+  "name": "boycott-me",
+  "version": "1.0.0",
+  "description": "Service for tracking participation in and impact of boycotts",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mustarddemon/boycott-me.git"
+  },
+  "engines": {
+    "node": ">=24.0.0 <25.0.0",
+    "npm": ">=11.0.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/mustarddemon/boycott-this/issues"
+  },
+  "homepage": "https://github.com/mustarddemon/boycott-this#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@jest/types": "^30.2.0",
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.2.1",
+    "eslint": "^10.0.0",
+    "jest": "^30.2.0",
+    "prettier": "^3.8.1",
+    "ts-jest": "^29.4.6",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
