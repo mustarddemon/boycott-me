@@ -1,8 +1,5 @@
-import { Request, Response } from "express";
+import { Request, Response } from 'express';
 
 export function getStatus(req: Request, res: Response) {
-
-
-
-    res.status(200).send({ ok: true })
+  res.status(200).send({ ok: true });
 }
