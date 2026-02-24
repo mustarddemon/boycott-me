@@ -23,4 +23,9 @@ describe('Function: setupServer', () => {
         setupServer(3000);
         expect(listenMock).toHaveBeenCalledWith(3000, expect.any(Function));
     });
+
+    it('sets up the GET /api/v1/status endpoint', () => {
+        const { app } = setupServer(3000);
+        expect(app.get).toHaveBeenCalledWith("/api/v1/status", expect.any(Function));
+    });
 });
