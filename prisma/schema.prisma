@@ -9,8 +9,8 @@ datasource db {
 
 /// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
 model companies {
-  company_id   String?
-  company_name String?
+  company_id   String @id @default(uuid())
+  company_name String @db.VarChar(255)
 
   @@ignore
 }
