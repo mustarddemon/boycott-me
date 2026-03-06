@@ -7,10 +7,18 @@ datasource db {
   provider = "postgresql"
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
 model companies {
-  company_id   String @id @default(uuid())
+  id   String @id @default(uuid())
   company_name String @db.VarChar(255)
+}
 
-  @@ignore
+model company_location {
+  location_id  String @id @default(uuid())
+  company_id String @db.VarChar(255)
+  addressLine1 String @db.VarChar(255)
+  addressLine2 String @db.VarChar(255)
+  country String @db.VarChar(255) 
+  postalCode String @db.VarChar(255)
+  city String @db.VarChar(255)
+  stateProvinceRegion String @db.VarChar(255) 
 }
