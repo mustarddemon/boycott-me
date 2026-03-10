@@ -13,7 +13,7 @@ model companies {
 }
 
 model company_location {
-  location_id  String @id @default(uuid())
+  id  String @id @default(uuid())
   company_id String @db.VarChar(255)
   addressLine1 String @db.VarChar(255)
   addressLine2 String @db.VarChar(255)
@@ -21,4 +21,20 @@ model company_location {
   postalCode String @db.VarChar(255)
   city String @db.VarChar(255)
   stateProvinceRegion String @db.VarChar(255) 
+}
+
+model boycotts {
+  id   String @id @default(uuid())
+  company_id String @db.VarChar(255)
+  location_id  String @id @default(uuid())
+  name String @db.VarChar(255)
+  reason String @db.VarChar(4096)
+}
+
+model buycotts {
+  id   String @id @default(uuid())
+  company_id String @db.VarChar(255)
+  location_id  String @id @default(uuid())
+  name String @db.VarChar(255)
+  reason String @db.VarChar(4096)
 }
