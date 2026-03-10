@@ -13,7 +13,7 @@ model companies {
 }
 
 model company_location {
-  location_id  String @id @default(uuid())
+  id  String @id @default(uuid())
   company_id String @db.VarChar(255)
   addressLine1 String @db.VarChar(255)
   addressLine2 String @db.VarChar(255)
@@ -21,4 +21,41 @@ model company_location {
   postalCode String @db.VarChar(255)
   city String @db.VarChar(255)
   stateProvinceRegion String @db.VarChar(255) 
+}
+
+model boycotts {
+  id   String @id @default(uuid())
+  company_id String @db.VarChar(255)
+  location_id  String @id @default(uuid())
+  name String @db.VarChar(255)
+  reason String @db.VarChar(4096)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model buycotts {
+  id   String @id @default(uuid())
+  company_id String @db.VarChar(255)
+  location_id  String @db.VarChar(255)
+  name String @db.VarChar(255)
+  reason String @db.VarChar(4096)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model users {
+  id   String @id @default(uuid())
+  username String @db.VarChar(255)
+  validated Boolean @default(false)
+}
+
+model pledges {
+  id   String @id @default(uuid())
+  user_id String @db.VarChar(255)
+  company_id String @db.VarChar(255)
+  location_id  String @db.VarChar(255)
+  amount Decimal @db.Decimal(10, 2)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  reason String @db.VarChar(4096)
 }
