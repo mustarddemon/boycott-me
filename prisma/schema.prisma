@@ -8,54 +8,72 @@ datasource db {
 }
 
 model companies {
-  id   String @id @default(uuid())
-  company_name String @db.VarChar(255)
+  id               String             @id @default(uuid())
+  company_name     String             @db.VarChar(255)
+  companyLocations company_location[]
+  boycotts         boycotts[]
+  buycotts         buycotts[]
+  pledges          pledges[]
 }
 
 model company_location {
-  id  String @id @default(uuid())
-  company_id String @db.VarChar(255)
-  addressLine1 String @db.VarChar(255)
-  addressLine2 String @db.VarChar(255)
-  country String @db.VarChar(255) 
-  postalCode String @db.VarChar(255)
-  city String @db.VarChar(255)
-  stateProvinceRegion String @db.VarChar(255) 
+  id                  String @id @default(uuid())
+  company_id          String @db.VarChar(255)
+  addressLine1        String @db.VarChar(255)
+  addressLine2        String @db.VarChar(255)
+  country             String @db.VarChar(255)
+  postalCode          String @db.VarChar(255)
+  city                String @db.VarChar(255)
+  stateProvinceRegion String @db.VarChar(255)
+
+  company  companies  @relation(fields: [company_id], references: [id])
+  boycotts boycotts[]
+  buycotts buycotts[]
 }
 
 model boycotts {
-  id   String @id @default(uuid())
-  company_id String @db.VarChar(255)
-  location_id  String @id @default(uuid())
-  name String @db.VarChar(255)
-  reason String @db.VarChar(4096)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String   @id @default(uuid())
+  company_id  String   @db.VarChar(255)
+  location_id String   @db.VarChar(255)
+  name        String   @db.VarChar(255)
+  reason      String   @db.VarChar(4096)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  company  companies        @relation(fields: [company_id], references: [id])
+  location company_location @relation(fields: [location_id], references: [id])
 }
 
 model buycotts {
-  id   String @id @default(uuid())
-  company_id String @db.VarChar(255)
-  location_id  String @db.VarChar(255)
-  name String @db.VarChar(255)
-  reason String @db.VarChar(4096)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String   @id @default(uuid())
+  company_id  String   @db.VarChar(255)
+  location_id String   @db.VarChar(255)
+  name        String   @db.VarChar(255)
+  reason      String   @db.VarChar(4096)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  company  companies        @relation(fields: [company_id], references: [id])
+  location company_location @relation(fields: [location_id], references: [id])
 }
 
 model users {
-  id   String @id @default(uuid())
-  username String @db.VarChar(255)
-  validated Boolean @default(false)
+  id        String    @id @default(uuid())
+  username  String    @db.VarChar(255)
+  validated Boolean   @default(false)
+  pledges   pledges[]
 }
 
 model pledges {
-  id   String @id @default(uuid())
-  user_id String @db.VarChar(255)
-  company_id String @db.VarChar(255)
-  location_id  String @db.VarChar(255)
-  amount Decimal @db.Decimal(10, 2)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  reason String @db.VarChar(4096)
+  id          String   @id @default(uuid())
+  user_id     String   @db.VarChar(255)
+  company_id  String   @db.VarChar(255)
+  location_id String   @db.VarChar(255)
+  amount      Decimal  @db.Decimal(10, 2)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  reason      String   @db.VarChar(4096)
+
+  company companies @relation(fields: [company_id], references: [id])
+  user    users     @relation(fields: [user_id], references: [id])
 }
