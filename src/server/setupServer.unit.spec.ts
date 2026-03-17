@@ -1,5 +1,6 @@
 import { describe, it, expect, jest, beforeEach } from '@jest/globals';
 import { setupServer } from './setupServer';
+import { json } from 'node:stream/consumers';
 
 let listenMock: jest.Mock;
 
@@ -9,7 +10,8 @@ jest.mock('express', () => {
     __esModule: true,
     // @ts-expect-error - We are mocking the default export, so we need to tell TypeScript to ignore the type error
     ...originalModule,
-    default: () => ({ get: jest.fn(), listen: listenMock }),
+    json: jest.fn(),
+    default: () => ({ get: jest.fn(), listen: listenMock, post: jest.fn() }),
   };
 });
 

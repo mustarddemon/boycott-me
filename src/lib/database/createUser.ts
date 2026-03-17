@@ -6,7 +6,7 @@ export interface User {
     validated: boolean;
 }
 
-export const createUser = async (user: Omit<User, 'id'>) => {
+export const createUser = async (user: Omit<User, 'id'>): Promise<User> => {
     const createdUser = await prisma.users.create({
         data: {
             username: user.username,
