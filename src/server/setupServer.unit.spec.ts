@@ -1,18 +1,29 @@
 import { describe, it, expect, jest, beforeEach } from '@jest/globals';
 import { setupServer } from './setupServer';
-import { json } from 'node:stream/consumers';
 
-let listenMock: jest.Mock;
+let listenMock: jest.Mock = jest.fn();
 
 jest.mock('express', () => {
-  const originalModule = jest.requireActual('express');
+  const expressMock = Object.assign(
+    jest.fn(() => ({
+      get: jest.fn(),
+      listen: listenMock,
+      post: jest.fn(),
+      json: jest.fn(() => jest.fn()),
+    })),
+    {
+      json: jest.fn(() => jest.fn()),
+    }
+  );
   return {
     __esModule: true,
-    // @ts-expect-error - We are mocking the default export, so we need to tell TypeScript to ignore the type error
-    ...originalModule,
-    json: jest.fn(),
-    default: () => ({ get: jest.fn(), listen: listenMock, post: jest.fn() }),
+    default: expressMock,
+    json: expressMock.json,
   };
+});
+
+beforeEach(() => {
+  listenMock = jest.fn();
 });
 
 describe('Function: setupServer', () => {
